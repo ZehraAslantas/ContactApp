@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//controller yapýlarýný projede kullanacaðýný söylüyor.
+//controller yapýlarýný projede kullanacaðýný söylüyor.Controller görünüm nesnesiyle birlikte çalýþacak diyoruz
 
 /*Burada(alt satýrda) DI çerçevesi için register kaydý yapcaz.
  ne zaman IContactRepository nesnesi enjekte edilirse o zaman InMemoryContactRepository(nesne) yi newle dedik

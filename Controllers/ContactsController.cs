@@ -80,7 +80,7 @@ namespace ContactApp.Controllers
         [ValidateAntiForgeryToken]//form üzerinde sahtelik olmasın diye ekliyoruz.bu backenddeki kontrolü.Bide frontend kısmınada yazdık
         public IActionResult Create(Contact contact)
         {
-            //Get isteği ile gelen ifadeleri model a almamız lazım
+            //Get isteği ile gelen ifadeleri model a almamız lazım  
             if (!ModelState.IsValid)
             {//model durumu geçerlimi değilse Yeni Kişi yazısı dönsün
                 ViewData["Title"] = "Yeni Kişi";

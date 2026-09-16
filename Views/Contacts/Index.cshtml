@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Contact>
+
+@* @model Bu sayfaya Controller'dan bir veri gelecek ve o verinin tipi tam olarak budur.
+IEnumerable<Contact> C#'ta üzerinde foreach döngüsü çalıştırılabilen tüm listelerin ve koleksiyonların çatı (ata) arayüzüdür (interface). Yani List<Contact>
+        , Array veya LINQ sorgu sonuçlarının hepsi birer IEnumerable'dır.
+        Contact te gel ctrl yap Contact sınıfı açılıyorsa import doğru yapılmıştır.
+        1. @model IEnumerable<Contact>:
+        Sayfanın başında "Bana içinde Contact nesneleri olan bir liste/koleksiyon gelecek" diyerek gelen paketin türünü belirttin.
+
+2. Model (Büyük harfle):
+Controller'ın return View(veriler); diyerek bu sayfaya teslim ettiği o canlı listenin ta kendisidir.
+
+3. .Count():
+C# ve LINQ'in metotlarından biridir. O listenin içine bakar ve "Bu paketin içinde şu an kaç tane kartvizit var?" diye saya*@
+<h1>Index (@Model.Count())</h1>@*Contact sınıfının controller kısmına gidip ordaki veri sayısını alır ve gösterir*@
+
+@*bu alt div kısım get için PRG pattern
+    +Yeni Kişi tuşu artık sayfada.ona tıklayınca Create.cshtml sayfasına gider.
+    Bu nedenle şimdi o sayfayı tasarlayalım
+*@
+<form method="get" asp-controller="Contacts" asp-action="Index" class="row g-2 mb-3">
+    @*sunucuda değişiklik istenmediği için method=get oldu.*@
+    <div class="col-sm-8 col-md-6 col-lg-4 ">
+        @*kullanıcı arama yapacağı için inputa ihtiyaç var*@
+        <input type="text" name="q" value="@((string)ViewBag.Query)" class="form-control" placeholder="Arama yapabilirsiniz"/> 
+        @*asp-for="FirstName" yazmak yerine burda direk name i verdi.tek değeri verdi*@
+    </div>
+
+    <div class="col-auto ms-auto">
+        @*sol tarafta arama butonu sağ tarafta input olacak.input bundan sonra ayarlandı.
+            bak kodu üstte.bu ise auto yani ona göre ayarlandı
+        *@
+        <a asp-controller="Contacts" asp-action="Create" class="btn btn-success">+Yeni Kişi</a>
+    </div>
+</form>
+
+
+<div class="table-responsive">
+    <table class="table table-hover align-middle"
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>E-posta</th>
+            <th>Telefon</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @*tablo gövdesinde her kaydı dinamik olarak buraya ekleyeceğim.ıd bu tabloya eklendi asp-route-id="@c.Id" ile.veaslında linkin ucuna eklendi=> /contacts/Edit/5 adresindeki 5 gibi.sen ındex sayfasında 5 numaralı kişiye güncelleme(edit) kısmına tıklayıp o sayfaya yönelince URL de bu yazıyo*@
+        @foreach(Contact c in Model){
+              <tr>
+                      <td>@c.FirstName</td>
+                      <td>@c.LastName</td>
+                      <td>@c.Email</td>
+                      <td>@c.Phone</td>
+                      <td class="text-end">
+                          <a class="btn btn-sm btn-outline-info" asp-action="Details" asp-contrroller="Contacts" asp-route-id="@c.Id">Detay</a>
+                          @*Index sayfasına gelice burda yazdığımız asp- li şeyler üstte localhost kımında
+                              '/Contacts/Details/ istenen Id değeri' olarak gözükecek ve burdaki Detay isimli link
+                              bizi Details.cshtml sayfasına yönlendiriyor.Yani hangi action ve hangi controller a gideceğini
+                              yazdık veriyi getirirken.routing yani yönlendirme için.controller kısmında veriyi 
+                              seçtik oraya yadığımız return view kısımları ile ve taşıdık details sayfasına
+                          *@
+                          @*asp-action="Details" kısmı tag helpers olduğu için eklendi slayt sayfa 21
+                              söz konusu aksiyon Details e karşılık gelir diyoruz bununla.Id kısmı da ilgili sayfa
+                              üzerinde link aksiyonu olduğunda id bilgisi de taşınsın buraya diye yazıldı
+                          *@
+                              <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-contrroller="Contacts" asp-route-id="@c.Id">Güncelle</a>
+                                  <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-contrroller="Contacts" asp-route-id="@c.Id">Sil</a>
+                                  @*üstteki 2 a linki yapı sil ve güncelle butonarını index sayfasına ekler*@
+                      </td>
+              </tr>  
+           }
+        </tbody>
+        </table>
+
+    @* @Model: Controller'dan gelen o gerçek kişilerin listesi veya tek bir kişinin verisi bu kelimenin içinde durur
+    .cshtml sayfalarına C# yazarken zaten mesela if için başına @ eklediğinden dolayı içerde tekrar ekleme başına
+*@
+
+    @if (!Model.Any()) @*model elemanı herhangi birşeyi içerip içermediğinden bahsediyoruz.Any() sonucu bool olarak döndürür*@
+    {
+        @*false ise yani tabloda kayıt olmazsa(mesela hepsi silindiyse) şunu yap(alttakini) ve kutuda uyarı yazısı göster*@
+        <div class="alert alert-warning">Kayıt bulunamadı.</div>
+    }
+</div>

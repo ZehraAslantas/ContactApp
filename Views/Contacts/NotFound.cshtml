@@ -1,0 +1,10 @@
+﻿<div class="alert alert-warning"> @*alert uyarıdır*@
+    @*NotFoundView metodunda ViewBag içindeki o mesajı burda çözcez alt satırda*@
+
+    @((string?)ViewBag.Message ?? "Kayıt Bulunamadı!")
+    @*ViewBag içinde mesaj bulamazsa diye böyle yazdık*@
+    <div class="mt-2">
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Listeye Dön</a>
+    </div>
+
+</div>

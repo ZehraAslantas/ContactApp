@@ -1,0 +1,61 @@
+﻿@*PRG örüntüsü videosu*@
+@model Contact
+@{
+    ViewData["Title"] = "Yeni Kişi";
+    @*sayfaya girince başlık böyle olsun istiyoruz.
+    <title>@ViewData["Title"] - ProjeAdi</title> yazmak yerine razor sayfa olduğu için
+    @{ } yapısı içinde yazıyoruz ve hep başlık böyle değiştirilir ASP.NET de*@
+}
+<h1 clss="mb-3">Yeni Kişi</h1>
+<form asp-action="Create" method="post" class="row g-3">
+    @*method=post demek get in cevabı post olarak dönecek demek bu nedenle
+        controller sayfasındaki create metodu varya get anlamına gelen,onun altına aynı
+        metpttan bir tane daha koy üstüne post olduğunu belirten bir etiket yaz
+        ve onun parametresini Contact olarak tanımla.
+    *@
+    @Html.AntiForgeryToken(); @*Bu frontend kısmında sahtelik olmasın diye eklendi*@
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+    @*bu validasyon(doğrulama için)*@
+    <div class="col-md-6">
+        <label asp-for="FirstName" class="form-label"></label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="LastName" class="form-label"></label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div> 
+    <div class="col-md-6">
+        <label asp-for="Phone" class="form-label"></label>
+        <input asp-for="Phone" class="form-control" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
+    </div>
+      <div class="col-md-6">
+        <label asp-for="Company" class="form-label"></label>
+        <input asp-for="Company" class="form-control" />
+        <span asp-validation-for="Company" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="col-12">
+        <label asp-for="Notes" class="form-label"></label>
+        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+        @*birden fazla satır olcağı için not kısmına input yerine textarea kullandık*@
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-success">Kaydet</button>
+        <a asp-action="Index" class="btn btn-secondary">İptal</a>
+        @*iptal ederse index sayfasına geri gider*@
+    </div>
+
+</form>

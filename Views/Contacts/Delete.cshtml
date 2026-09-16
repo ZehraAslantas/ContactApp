@@ -1,0 +1,31 @@
+﻿
+@model Contact
+<h1 class="mb-3 text-danger">Silme Onayı</h1>
+<p>Bu kişiyi silmek istediğinizden emin misiniz?</p>
+
+@*şimdi alt satırlarda kişi bilgilerini kullanıcı ile paylaşcaz.
+    bunu da contact modelinden gelen bilgilere bağlı olarak yapıcaz.
+*@
+
+<dl class="row">
+    <dt class="col-md-3">Ad</dt>
+    <dt class="col-md-9">@Model.FirstName</dt>
+
+    <dt class="col-md-3">Soyad</dt>
+    <dt class="col-md-9">@Model.LastName</dt
+
+    <dt class="col-md-3">Email</dt>
+    <dt class="col-md-9">@Model.Email</dt
+        @*şuan kullanıcı bilgilerini gördük ama sunucuya göndermedik.
+            kimi silmek istediğimizi ifade edicez ve ilgili repo da kaydı tamalayacağız
+            eğer onu yapmazsak sadece bilgilendirme olur.bunu da alttaki Form ile yapıyoruz
+        *@
+</dl>
+<form asp-action="Delete" asp-routeid="@Model.Id" method="post">
+    @Html.AntiForgeryToken() @*sahteciliği önlüyoruz.*@
+    <button type="submit" class="btn btn-danger">Sil</button>
+    @*form bilgisini sunucuya gönderecek buton*@
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+    @*kullanıcı silmekten vazgeçerse onu index sayfasına yönlendiririz*@
+</form>
+@*sunucu tarafında değişiklik yapcaksak method posttur.bilgi alacaksak get olur method kısmı*@

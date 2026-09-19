@@ -6,7 +6,7 @@ namespace ContactApp.Services;
 public class InMemoryContactRepository : IContactRepository
 {
     private readonly List<Contact> _contacts;
-    /*referans tanımlı ifadeyi kullanabilmek için başlatılması şart
+    /*referans tanımlı liste ifadeyi kullanabilmek için başlatılması şart
      bu da contructor da yazdığımız ilk satır ile olur.yada ctor
     olmadan tanımlandığı satırda başlatılmalı.*/
     private int _nextId=1;
@@ -18,8 +18,8 @@ public class InMemoryContactRepository : IContactRepository
      * anda çalışan ve o nesnenin sağlıklı,
      * güvenli ve eksiksiz bir şekilde hayata başlamasını sağlar*/
     {
-        _contacts =new List<Contact>();
-        /*uygulama üzerinde doğrudan sonuç almak için listeyi ctor da başlatcazç
+        _contacts =new List<Contact>(); //boş rehber oluşturdu.
+        /*uygulama üzerinde doğrudan sonuç almak için listeyi ctor da başlatcaz
         çekirdek data denen seed data eklicez bu listeye
         alt satırdaki yapı*/
         var seed = new List<Contact>()

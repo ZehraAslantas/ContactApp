@@ -7,7 +7,8 @@ namespace ContactApp.Controllers
 {
     public class ContactsController : Controller
     {
-        private readonly IContactRepository _repo;//ctrl . yap ctor gelsin altta
+        private readonly IContactRepository _repo;//IContactRepository yi çağırdık yani InMemoryCntactRepository e gidi onu çağırdı.ve ordaki yapıyı da contructor ile _repo ya attı.
+        //ctrl . yap ctor gelsin altta
         /*DI ile ilgili nesne buraya bağlanacak.
         readonly olarak tanımlanmış.bu demekki değeri 2 yerde verilebilir.
         tanımlandığı satır yada ctor*/
